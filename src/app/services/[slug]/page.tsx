@@ -30,6 +30,14 @@ export async function generateMetadata({
       title: service.title,
       description: service.summary,
       type: "website",
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: `${service.title} | Mahadi Na Manzo`,
+        },
+      ],
     },
   };
 }

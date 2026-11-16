@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/Button";
 import Container from "@/components/Container";
@@ -88,14 +89,16 @@ export default function Home() {
 
           <div className="relative mx-auto w-full max-w-[540px]">
             <div className="absolute -right-10 -top-10 size-44 rounded-full bg-lime/60 blur-3xl" />
-            <div className="relative aspect-[0.98] overflow-hidden rounded-[2rem] bg-[#dfe8de] p-5 sm:p-8">
-              <div className="absolute inset-5 rounded-[1.5rem] border border-white/60 sm:inset-8" />
-              <div className="absolute left-[13%] top-[15%] h-[68%] w-[74%] rotate-[-8deg] rounded-[45%] bg-[#a4bea8]" />
-              <div className="absolute left-[30%] top-[11%] h-[76%] w-[52%] rotate-[12deg] rounded-[48%] bg-[#344d3e]" />
-              <div className="absolute left-[42%] top-[17%] h-[64%] w-[31%] -rotate-[9deg] rounded-[45%] bg-[#c4d7b6]" />
-              <div className="absolute left-[18%] top-[26%] grid size-24 place-items-center rounded-full bg-lime text-4xl text-ink shadow-xl sm:size-32 sm:text-5xl">
-                ✳
-              </div>
+            <div className="relative aspect-[0.98] overflow-hidden rounded-[2rem]">
+              <Image
+                src="/agency-visual.png"
+                alt="Abstract green and lime artwork representing thoughtful digital work"
+                width={1080}
+                height={1100}
+                sizes="(max-width: 1024px) 100vw, 540px"
+                priority
+                className="size-full object-cover"
+              />
               <div className="absolute bottom-8 left-8 rounded-2xl bg-paper px-5 py-4 shadow-xl sm:bottom-12 sm:left-12">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-ink/50">
                   Built with purpose
