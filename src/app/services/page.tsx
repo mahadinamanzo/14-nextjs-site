@@ -1,44 +1,17 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Button from "@/components/Button";
 import Container from "@/components/Container";
-import SectionHeading from "@/components/SectionHeading";
+import { getServices } from "@/lib/services";
 
 export const metadata: Metadata = {
   title: "Services",
   description: "Brand strategy, digital design, and growth services from Mahadi Na Manzo.",
 };
 
-const services = [
-  {
-    number: "01",
-    title: "Brand strategy & identity",
-    intro: "Find your voice. Make it unmistakable.",
-    description:
-      "We uncover what makes your business matter, then turn that clarity into a brand people can recognise, remember, and believe in.",
-    deliverables: ["Positioning & messaging", "Visual identity systems", "Brand guidelines"],
-    glyph: "✳",
-  },
-  {
-    number: "02",
-    title: "Websites & digital products",
-    intro: "Useful by design. Memorable by nature.",
-    description:
-      "From first sketch to final pixel, we create digital experiences that feel effortless for your audience and work hard for your business.",
-    deliverables: ["Website design & development", "Digital product experiences", "Content & UX"],
-    glyph: "↗",
-  },
-  {
-    number: "03",
-    title: "Growth & creative direction",
-    intro: "Turn a good idea into forward motion.",
-    description:
-      "We help ambitious teams make the right next move with clear direction, sharp creative, and a plan that makes progress visible.",
-    deliverables: ["Campaign concepts", "Creative direction", "Ongoing design partnership"],
-    glyph: "⌁",
-  },
-];
-
 export default function ServicesPage() {
+  const services = getServices();
+
   return (
     <>
       <section className="py-20 sm:py-28">
@@ -60,52 +33,53 @@ export default function ServicesPage() {
       </section>
 
       <section className="pb-20 sm:pb-28">
-        <Container className="space-y-4">
-          {services.map((service) => (
-            <article
-              key={service.number}
-              className="grid gap-8 rounded-[2rem] border border-ink/10 bg-white/50 p-7 sm:p-10 lg:grid-cols-[0.1fr_0.9fr_1fr] lg:gap-12"
+        <Container className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((service, index) => (
+            <Link
+              key={service.slug}
+              href={`/services/${service.slug}`}
+              className="group flex min-h-72 flex-col rounded-[2rem] border border-ink/10 bg-white/50 p-7 transition-all hover:-translate-y-1 hover:border-ink/20 hover:bg-white sm:p-8"
             >
-              <span className="text-xs font-bold tracking-[0.16em] text-emerald-800">
-                {service.number}
-              </span>
-              <div>
-                <span className="grid size-12 place-items-center rounded-full bg-[#e8eee5] text-2xl text-emerald-900">
-                  {service.glyph}
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold tracking-[0.16em] text-emerald-800">
+                  {String(index + 1).padStart(2, "0")}
                 </span>
-                <h2 className="mt-5 text-2xl font-semibold tracking-[-0.04em] sm:text-3xl">
-                  {service.title}
-                </h2>
-                <p className="mt-2 text-sm font-medium text-emerald-900">
-                  {service.intro}
-                </p>
+                <span className="grid size-12 place-items-center rounded-full bg-[#e8eee5] text-2xl text-emerald-900 transition-colors group-hover:bg-lime">
+                  {service.icon}
+                </span>
               </div>
-              <div>
-                <p className="max-w-lg text-sm leading-7 text-ink/65 sm:text-base">
-                  {service.description}
-                </p>
-                <ul className="mt-6 space-y-3">
-                  {service.deliverables.map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-sm text-ink/75">
-                      <span className="size-1.5 rounded-full bg-emerald-800" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+              <h2 className="mt-8 text-xl font-semibold tracking-[-0.04em] sm:text-2xl">
+                {service.title}
+              </h2>
+              <p className="mt-3 text-sm leading-6 text-ink/65">
+                {service.summary}
+              </p>
+              <div className="mt-auto flex items-center justify-between gap-4 pt-7">
+                <span className="text-xs font-medium text-ink/50">
+                  From ₦{service.priceFrom.toLocaleString("en-NG")}
+                </span>
+                <span className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-900 transition-all group-hover:gap-3">
+                  Explore <span aria-hidden="true">→</span>
+                </span>
               </div>
-            </article>
+            </Link>
           ))}
         </Container>
       </section>
 
       <section className="bg-ink py-20 sm:py-28">
         <Container className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <SectionHeading
-            eyebrow="A good place to start"
-            title="Every project begins with a conversation."
-            description="Tell us what you’re working towards. We’ll bring an open mind and a few good questions."
-            light
-          />
+          <div className="max-w-2xl">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-lime">
+              A good place to start
+            </p>
+            <h2 className="text-3xl font-semibold leading-tight tracking-[-0.045em] text-white sm:text-4xl lg:text-5xl">
+              Every project begins with a conversation.
+            </h2>
+            <p className="mt-5 max-w-xl text-base leading-7 text-white/65">
+              Tell us what you’re working towards. We’ll bring an open mind and a few good questions.
+            </p>
+          </div>
           <Button href="/contact">Let&apos;s talk</Button>
         </Container>
       </section>
